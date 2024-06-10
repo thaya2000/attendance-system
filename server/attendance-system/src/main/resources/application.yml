@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: attendance-system
+
+application:
+  security:
+    jwt:
+      secret-key: s3cR3tK3yW!th#Numb3rsAnd$peci@lCh@r@ct3rd
+      expiration: 3600000
