@@ -5,5 +5,10 @@ spring:
 application:
   security:
     jwt:
-      secret-key: s3cR3tK3yW!th#Numb3rsAnd$peci@lCh@r@ct3rd
+      secret-key: Sp68ckqmBn5sTNAsljOoCmHvS1IRQtesJBWxcOG8iNE=
       expiration: 3600000
+
+user:
+  credentials:
+    file: src/main/resources/credentials.txt
+
