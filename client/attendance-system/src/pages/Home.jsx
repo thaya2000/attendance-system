@@ -1,18 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { MdOutlineLightMode, MdDarkMode } from "react-icons/md";
+import { logout } from "../redux/authSlice";
 
 const Home = () => {
   const [darkMode, setDarkMode] = useState(
-    localStorage.getItem("darkMode") === "true" || false
+    sessionStorage.getItem("darkMode") === "true" || true
   );
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const authState = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!authState.isAuthenticated) {
+      navigate("/login");
+    }
+  }, [authState.isAuthenticated, navigate]);
 
   const handleLogout = () => {
-    localStorage.removeItem("auth");
+    dispatch(logout());
+    navigate("/login");
   };
 
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    localStorage.setItem("darkMode", !darkMode);
+    sessionStorage.setItem("darkMode", !darkMode);
   };
 
   return (
@@ -41,7 +54,7 @@ const Home = () => {
             </button>
             <button
               onClick={handleLogout}
-              className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+              className="text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
             >
               Logout
             </button>
